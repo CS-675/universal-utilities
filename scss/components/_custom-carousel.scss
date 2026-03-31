@@ -1,0 +1,28 @@
+.custom-carousel {
+    width: 100%;
+    padding-inline: 20px;
+    display: flex;
+    align-items: center;
+
+    [class^="carousel-arrow"] {
+    }
+
+    .carousel-inner {
+        overflow: hidden;
+
+        .carousel-slides {
+            display: flex;
+            transition: all 0.3s ease-in-out;
+
+            .carousel-slide {
+                padding-inline: 5px;
+                flex: 0 0 calc(100% / var(--items-in-view));
+                max-width: calc(100% / var(--items-in-view));
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

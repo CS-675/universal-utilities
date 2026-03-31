@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100vw;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-carousel {
+  width: 100%;
+  padding-inline: 20px;
+  display: flex;
+  align-items: center;
+}
+.custom-carousel .carousel-inner {
+  overflow: hidden;
+}
+.custom-carousel .carousel-inner .carousel-slides {
+  display: flex;
+  transition: all 0.3s ease-in-out;
+}
+.custom-carousel .carousel-inner .carousel-slides .carousel-slide {
+  padding-inline: 5px;
+  flex: 0 0 calc(100% / var(--items-in-view));
+  max-width: calc(100% / var(--items-in-view));
+}
+.custom-carousel .carousel-inner .carousel-slides .carousel-slide img {
+  width: 100%;
+}/*# sourceMappingURL=main.css.map */
