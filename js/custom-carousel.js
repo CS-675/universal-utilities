@@ -73,26 +73,33 @@ class CustomCarousel {
 
 	handleDragStart(event) {
 		this.isDragging = true;
-		this.startX = event.type.includes("mouse") ? event.pageX : event.touches[0].pageX;
+		this.startX = event.type.includes("mouse") ? event.clientX : event.touches[0].clientX;
+		this.slidesContainer.style.transition = "none";
 	}
 
 	handleDrag(event) {
 		if (!this.isDragging) return;
-		this.endX =  event.type.includes("mouse") ? event.pageX : event.touches[0].pageX;
+		this.endX = event.type.includes("mouse") ? event.clientX : event.touches[0].clientX;
 		const distance = this.endX - this.startX;
+		const dragPercent = (distance / window.innerWidth) * 100;
 
-		if (distance > 50) {
-			this.handleMoveSlide("left");
-			this.isDragging = false;
-		} else if (distance < -50) {
-			this.handleMoveSlide("right");
-			this.isDragging = false;
-		}
+		this.slidesContainer.style.transform = `translateX(${this.getTranslateX() + dragPercent}%)`;
 	}
 
 	handleDragEnd(event) {
 		this.isDragging = false;
-		this.endX = event.type.includes("mouse") ? event.pageX : event.changedTouches[0].pageX;
+		this.endX = event.type.includes("mouse") ? event.clientX : event.changedTouches[0].clientX;
+		const distance = this.endX - this.startX;
+
+		this.slidesContainer.style.transition = "transform 0.3s ease-out";
+
+		if (distance > 50) {
+			this.handleMoveSlide("left");
+		} else if (distance < -50) {
+			this.handleMoveSlide("right");
+		} else {
+			this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
+		}
 	}
 
 	initialiseItemsInView() {
