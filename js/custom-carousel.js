@@ -27,6 +27,14 @@ class CustomCarousel {
 		this.arrowLeft = null;
 		this.arrowRight = null;
 		this.itemsInView = 1;
+		this.isDragging = false;
+		this.startX = 0;
+		this.endX = 0;
+		this.requiresDrag = false;
+	}
+
+	getTranslateX() {
+		return -(this.currentSlideIndex * (100 / this.itemsInView));
 	}
 
 	toggleDisabledClass(arrow, condition) {
@@ -60,7 +68,31 @@ class CustomCarousel {
 			}
 		}
 
-		this.slidesContainer.style.transform = `translateX(-${this.currentSlideIndex * (100 / this.itemsInView)}%)`;
+		this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
+	}
+
+	handleDragStart(event) {
+		this.isDragging = true;
+		this.startX = event.type.includes("mouse") ? event.pageX : event.touches[0].pageX;
+	}
+
+	handleDrag(event) {
+		if (!this.isDragging) return;
+		this.endX =  event.type.includes("mouse") ? event.pageX : event.touches[0].pageX;
+		const distance = this.endX - this.startX;
+
+		if (distance > 50) {
+			this.handleMoveSlide("left");
+			this.isDragging = false;
+		} else if (distance < -50) {
+			this.handleMoveSlide("right");
+			this.isDragging = false;
+		}
+	}
+
+	handleDragEnd(event) {
+		this.isDragging = false;
+		this.endX = event.type.includes("mouse") ? event.pageX : event.changedTouches[0].pageX;
 	}
 
 	initialiseItemsInView() {
@@ -72,6 +104,12 @@ class CustomCarousel {
 				this.itemsInView = breakpoint.itemsInView;
 			}
 		});
+
+		if (this.itemsInView === this.totalItems) {
+			this.requiresDrag = false;
+		} else {
+			this.requiresDrag = true;
+		}
 	}
 
 	initialiseIndicators() {}
@@ -104,5 +142,19 @@ class CustomCarousel {
 	initialise() {
 		this.initialiseItemsInView();
 		this.initialiseArrows();
+
+		if (this.requiresDrag) {
+			this.slidesContainer.style.cursor = "grab";
+			
+			this.slidesContainer.addEventListener("mousedown", () => (this.slidesContainer.style.cursor = "grabbing"));
+			this.slidesContainer.addEventListener("mouseup", () => (this.slidesContainer.style.cursor = "grab"));
+
+			this.slidesContainer.addEventListener("mousedown", (event) => this.handleDragStart(event));
+			this.slidesContainer.addEventListener("touchstart", (event) => this.handleDragStart(event));
+			this.slidesContainer.addEventListener("mousemove", (event) => this.handleDrag(event));
+			this.slidesContainer.addEventListener("touchmove", (event) => this.handleDrag(event));
+			this.slidesContainer.addEventListener("mouseup", (event) => this.handleDragEnd(event));
+			this.slidesContainer.addEventListener("touchend", (event) => this.handleDragEnd(event));
+		}
 	}
 }

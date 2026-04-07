@@ -12,37 +12,15 @@
 
 <body>
     <main>
-        <div class="custom-carousel" id="custom_carousel">
-            <div class="carousel-inner">
-                <div class="carousel-slides">
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php include 'pages/custom_carousel.html'; ?>
     </main>
 </body>
 
 <script>
     new CustomCarousel({
         carouselId: 'custom_carousel',
-        autoplay: true, 
+        autoplay: true,
     }).initialise();
 </script>
+
 </html>

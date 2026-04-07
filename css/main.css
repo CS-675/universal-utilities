@@ -45,6 +45,12 @@ button {
   flex: 0 0 calc(100% / var(--items-in-view));
   max-width: calc(100% / var(--items-in-view));
 }
+.custom-carousel .carousel-inner .carousel-slides .carousel-slide * {
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
 .custom-carousel .carousel-inner .carousel-slides .carousel-slide img {
   width: 100%;
 }/*# sourceMappingURL=main.css.map */
