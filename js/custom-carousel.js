@@ -16,6 +16,7 @@ class CustomCarousel {
 		hasArrows = true,
 	}) {
 		this.carousel = document.getElementById(carouselId);
+		this.innerContainer = this.carousel.querySelector(".carousel-inner");
 		this.slidesContainer = this.carousel.querySelector(".carousel-slides");
 		this.totalItems = this.slidesContainer.children.length;
 		this.breakpoints = breakpoints;
@@ -31,6 +32,7 @@ class CustomCarousel {
 		this.startX = 0;
 		this.endX = 0;
 		this.requiresDrag = false;
+		this.indicatorsContainer = null;
 	}
 
 	getTranslateX() {
@@ -68,7 +70,17 @@ class CustomCarousel {
 			}
 		}
 
+		
+
 		this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
+		
+		if (this.indicatorsContainer) {
+			const indicators = this.indicatorsContainer.querySelectorAll(".carousel-indicator");
+			indicators.forEach((ind) => ind.classList.remove("active"));
+			if (indicators[this.currentSlideIndex]) {
+				indicators[this.currentSlideIndex].classList.add("active");
+			}
+		}
 	}
 
 	handleDragStart(event) {
@@ -119,7 +131,28 @@ class CustomCarousel {
 		}
 	}
 
-	initialiseIndicators() {}
+	initialiseIndicators() {
+		const indicatorsContainer = document.createElement("div");
+		indicatorsContainer.classList.add("carousel-indicators");
+
+		indicatorsContainer.innerHTML = `
+			${Array.from({ length: this.totalItems - this.itemsInView + 1 }, (_, index) => `<button class="carousel-indicator ${index === 0 ? "active" : ""}" data-index="${index}"></button>`).join("")}
+		`;
+
+		this.innerContainer.appendChild(indicatorsContainer);
+		this.indicatorsContainer = indicatorsContainer;
+
+		const indicators = indicatorsContainer.querySelectorAll(".carousel-indicator");
+
+		indicators.forEach((indicator) => {
+			indicator.addEventListener("click", () => {
+				this.currentSlideIndex = parseInt(indicator.getAttribute("data-index"));
+				this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
+				indicators.forEach((ind) => ind.classList.remove("active"));
+				indicator.classList.add("active");
+			});
+		});
+	}
 
 	initialiseArrows() {
 		const arrowLeft = document.createElement("button");
@@ -128,13 +161,8 @@ class CustomCarousel {
 		arrowLeft.classList.add("carousel-arrow-left");
 		arrowRight.classList.add("carousel-arrow-right");
 
-		arrowLeft.innerHTML = `
-			<i class="fa-solid fa-arrow-left"></i>
-		`;
-
-		arrowRight.innerHTML = `
-			<i class="fa-solid fa-arrow-right"></i>
-        `;
+		arrowLeft.innerHTML = `<i class="fa-solid fa-arrow-left"></i>`;
+		arrowRight.innerHTML = `<i class="fa-solid fa-arrow-right"></i>`;
 
 		arrowLeft.addEventListener("click", () => this.handleMoveSlide("left"));
 		arrowRight.addEventListener("click", () => this.handleMoveSlide("right"));
@@ -148,11 +176,13 @@ class CustomCarousel {
 
 	initialise() {
 		this.initialiseItemsInView();
-		this.initialiseArrows();
+
+		if (this.hasArrows) this.initialiseArrows();
+		if (this.hasIndicators) this.initialiseIndicators();
 
 		if (this.requiresDrag) {
 			this.slidesContainer.style.cursor = "grab";
-			
+
 			this.slidesContainer.addEventListener("mousedown", () => (this.slidesContainer.style.cursor = "grabbing"));
 			this.slidesContainer.addEventListener("mouseup", () => (this.slidesContainer.style.cursor = "grab"));
 

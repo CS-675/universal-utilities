@@ -53,4 +53,20 @@ button {
 }
 .custom-carousel .carousel-inner .carousel-slides .carousel-slide img {
   width: 100%;
+}
+.custom-carousel .carousel-inner .carousel-indicators {
+  margin-top: 10px;
+  padding-inline: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.custom-carousel .carousel-inner .carousel-indicators .carousel-indicator {
+  height: 17.5px;
+  width: 17.5px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+}
+.custom-carousel .carousel-inner .carousel-indicators .carousel-indicator.active {
+  background-color: red;
 }/*# sourceMappingURL=main.css.map */

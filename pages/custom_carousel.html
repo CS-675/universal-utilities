@@ -1,7 +1,7 @@
 <div class="custom-carousel" id="custom_carousel">
     <div class="carousel-inner">
         <div class="carousel-slides">
-            <?php for ($i = 0; $i < 6; $i++) { ?>
+            <?php for ($index = 0; $index < 6; $index++) { ?>
                 <div class="carousel-slide">
                     <img src="https://placehold.co/600x400" alt="Placeholder" />
                 </div>
@@ -9,3 +9,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    new CustomCarousel({
+        carouselId: 'custom_carousel',
+        autoplay: true,
+        hasArrows: true,
+        hasIndicators: true,
+    }).initialise();
+</script>
