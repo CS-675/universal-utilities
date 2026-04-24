@@ -32,6 +32,7 @@ button {
   padding-inline: 20px;
   display: flex;
   align-items: center;
+  gap: 5px;
 }
 .custom-carousel .carousel-inner {
   overflow: hidden;
@@ -62,11 +63,12 @@ button {
   gap: 10px;
 }
 .custom-carousel .carousel-inner .carousel-indicators .carousel-indicator {
-  height: 17.5px;
-  width: 17.5px;
-  background: rgba(0, 0, 0, 0.05);
+  height: 15px;
+  width: 15px;
+  background: rgba(0, 0, 0, 0.025);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 50%;
 }
 .custom-carousel .carousel-inner .carousel-indicators .carousel-indicator.active {
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.25);
 }/*# sourceMappingURL=main.css.map */

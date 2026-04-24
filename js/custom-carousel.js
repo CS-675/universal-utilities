@@ -161,8 +161,8 @@ class CustomCarousel {
 		arrowLeft.classList.add("carousel-arrow-left");
 		arrowRight.classList.add("carousel-arrow-right");
 
-		arrowLeft.innerHTML = `<i class="fa-solid fa-arrow-left"></i>`;
-		arrowRight.innerHTML = `<i class="fa-solid fa-arrow-right"></i>`;
+		arrowLeft.innerHTML = `<i class="fa-solid fa-caret-left"></i>`;
+		arrowRight.innerHTML = `<i class="fa-solid fa-caret-right"></i>`;
 
 		arrowLeft.addEventListener("click", () => this.handleMoveSlide("left"));
 		arrowRight.addEventListener("click", () => this.handleMoveSlide("right"));
