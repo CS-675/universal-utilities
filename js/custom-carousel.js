@@ -158,6 +158,10 @@ class CustomCarousel {
 			${Array.from({ length: this.totalItems - this.itemsInView + 1 }, (_, index) => `<button class="custom-carousel-indicator ${index === 0 ? "active" : ""}" data-index="${index}"></button>`).join("")}
 		`;
 
+		if (this.indicatorsContainer) {
+			this.indicatorsContainer.remove();
+		}
+
 		this.innerContainer.appendChild(indicatorsContainer);
 		this.indicatorsContainer = indicatorsContainer;
 
@@ -207,5 +211,15 @@ class CustomCarousel {
 
 			if (this.hasIndicators) this.initialiseIndicators();
 		}
+
+		window.addEventListener("resize", () => {
+			this.currentSlideIndex = 0;
+			this.slidesContainer.style.transform = `translateX(0%)`;
+			this.initialiseItemsInView();
+
+			if (this.hasIndicators && this.itemsInView < this.totalItems) {
+				this.initialiseIndicators();
+			}
+		});
 	}
 }
