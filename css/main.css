@@ -18,6 +18,7 @@ body {
 
 img {
   height: auto;
+  width: 100%;
   max-width: 100%;
 }
 
@@ -52,19 +53,16 @@ button {
   justify-content: space-between;
   transition: 0.3s ease-in-out;
 }
-.custom-carousel .custom-carousel-inner .custom-carousel-slides .custom-carousel-slide {
+.custom-carousel .custom-carousel-inner .custom-carousel-slides > * {
   padding-inline: 5px;
   flex: 0 0 calc(100% / var(--items-in-view));
   max-width: calc(100% / var(--items-in-view));
 }
-.custom-carousel .custom-carousel-inner .custom-carousel-slides .custom-carousel-slide * {
+.custom-carousel .custom-carousel-inner .custom-carousel-slides > * * {
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-}
-.custom-carousel .custom-carousel-inner .custom-carousel-slides .custom-carousel-slide img {
-  width: 100%;
 }
 .custom-carousel .custom-carousel-indicators {
   flex: 0 0 100%;

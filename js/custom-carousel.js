@@ -12,6 +12,7 @@ class CustomCarousel {
 		],
 		infinite = true,
 		autoplay = false,
+		hasDrag = false,
 		hasIndicators = false,
 		hasArrows = false,
 	}) {
@@ -22,6 +23,7 @@ class CustomCarousel {
 		this.breakpoints = breakpoints;
 		this.infinite = infinite;
 		this.autoplay = autoplay;
+		this.hasDrag = hasDrag;
 		this.hasIndicators = hasIndicators;
 		this.hasArrows = hasArrows;
 		this.currentSlideIndex = 0;
@@ -193,12 +195,17 @@ class CustomCarousel {
 
 	initialise() {
 		this.initialiseItemsInView();
-		this.initialiseEventListeners();
 
-		if (this.hasArrows && (this.itemsInView < this.totalItems)) {
-			this.initialiseArrows();
+		if (this.itemsInView < this.totalItems) {
+			if (this.hasDrag || !this.hasArrows) {
+				this.initialiseEventListeners();
+			}
+
+			if (this.hasArrows) {
+				this.initialiseArrows();
+			}
+
+			if (this.hasIndicators) this.initialiseIndicators();
 		}
-		
-		if (this.hasIndicators) this.initialiseIndicators();
 	}
 }

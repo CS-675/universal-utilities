@@ -25,7 +25,7 @@
             justify-content: space-between;
             transition: .3s ease-in-out;
 
-            .custom-carousel-slide {
+            > * {
                 padding-inline: 5px;
                 flex: 0 0 calc(100% / var(--items-in-view));
                 max-width: calc(100% / var(--items-in-view));
@@ -33,10 +33,6 @@
                 * {
                     pointer-events: none;
                     user-select: none;
-                }
-
-                img {
-                    width: 100%;
                 }
             }
         }
