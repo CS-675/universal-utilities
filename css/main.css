@@ -30,17 +30,21 @@ button {
 }
 
 .custom-carousel {
-  --carousel-gap: 5px;
   width: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--carousel-gap);
+  gap: 5px;
 }
 .custom-carousel [class^=custom-carousel-arrow] {
-  flex: 0 0 calc(10% - var(--carousel-gap));
+  width: -moz-max-content;
+  width: max-content;
   background: none;
   border: none;
+}
+.custom-carousel [class^=custom-carousel-arrow].disabled {
+  opacity: 0.25;
+  pointer-events: none;
 }
 .custom-carousel [class^=custom-carousel-arrow] i {
   font-size: 30px;

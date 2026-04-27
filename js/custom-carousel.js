@@ -3,14 +3,10 @@ class CustomCarousel {
 		carouselId,
 		breakpoints = [
 			{ size: 2560, itemsInView: 3 },
-			{ size: 1440, itemsInView: 3 },
 			{ size: 1024, itemsInView: 2 },
 			{ size: 768, itemsInView: 1 },
-			{ size: 425, itemsInView: 1 },
-			{ size: 375, itemsInView: 1 },
-			{ size: 320, itemsInView: 1 },
 		],
-		infinite = true,
+		infinite = false,
 		autoplay = false,
 		hasDrag = false,
 		hasIndicators = false,
@@ -36,15 +32,20 @@ class CustomCarousel {
 		this.indicatorsContainer = null;
 	}
 
-	getTranslateX() {
-		return -(this.currentSlideIndex * (100 / this.itemsInView));
-	}
+	getTranslateX = () => -(this.currentSlideIndex * (100 / this.itemsInView));
 
-	toggleDisabledClass(arrow, condition) {
-		if (condition) {
-			arrow.classList.add("disabled");
+	toggleDisabledClass = (arrow, condition) => arrow.classList[condition]("disabled");
+
+	handleDisabledArrows() {
+		if (this.currentSlideIndex === 0) {
+			this.toggleDisabledClass(this.arrowLeft, "add");
 		} else {
-			arrow.classList.remove("disabled");
+			this.toggleDisabledClass(this.arrowLeft, "remove");
+		}
+		if (this.currentSlideIndex === this.totalItems - this.itemsInView) {
+			this.toggleDisabledClass(this.arrowRight, "add");
+		} else {
+			this.toggleDisabledClass(this.arrowRight, "remove");
 		}
 	}
 
@@ -53,8 +54,6 @@ class CustomCarousel {
 			if (this.currentSlideIndex === 0) {
 				if (this.infinite) {
 					this.currentSlideIndex = this.totalItems - this.itemsInView;
-				} else {
-					this.toggleDisabledClass(this.arrowRight, false);
 				}
 			} else {
 				this.currentSlideIndex--;
@@ -63,12 +62,14 @@ class CustomCarousel {
 			if (this.currentSlideIndex === this.totalItems - this.itemsInView) {
 				if (this.infinite) {
 					this.currentSlideIndex = 0;
-				} else {
-					this.toggleDisabledClass(this.arrowLeft, false);
 				}
 			} else {
 				this.currentSlideIndex++;
 			}
+		}
+
+		if (!this.infinite && this.hasArrows) {
+			this.handleDisabledArrows();
 		}
 
 		this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
@@ -182,13 +183,20 @@ class CustomCarousel {
 		const arrowRight = document.createElement("button");
 
 		arrowLeft.classList.add("custom-carousel-arrow-left");
-		arrowRight.classList.add("custom-carousel-arrow-right");
-
 		arrowLeft.innerHTML = `<i class="fa-solid fa-angle-left"></i>`;
-		arrowRight.innerHTML = `<i class="fa-solid fa-angle-right"></i>`;
-
 		arrowLeft.addEventListener("click", () => this.handleMoveSlide("left"));
+
+		arrowRight.classList.add("custom-carousel-arrow-right");
+		arrowRight.innerHTML = `<i class="fa-solid fa-angle-right"></i>`;
 		arrowRight.addEventListener("click", () => this.handleMoveSlide("right"));
+
+		if (!this.infinite && this.hasArrows) {
+			if (this.currentSlideIndex === 0) {
+				this.toggleDisabledClass(arrowLeft, "add");
+			} else if (this.currentSlideIndex === this.totalItems - this.itemsInView) {
+				this.toggleDisabledClass(arrowRight, "add");
+			}
+		}
 
 		this.carousel.insertBefore(arrowLeft, this.carousel.firstChild);
 		this.carousel.appendChild(arrowRight);
@@ -201,14 +209,8 @@ class CustomCarousel {
 		this.initialiseItemsInView();
 
 		if (this.itemsInView < this.totalItems) {
-			if (this.hasDrag || !this.hasArrows) {
-				this.initialiseEventListeners();
-			}
-
-			if (this.hasArrows) {
-				this.initialiseArrows();
-			}
-
+			if (this.hasDrag || !this.hasArrows) this.initialiseEventListeners();
+			if (this.hasArrows) this.initialiseArrows();
 			if (this.hasIndicators) this.initialiseIndicators();
 		}
 

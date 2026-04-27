@@ -1,15 +1,19 @@
 .custom-carousel {
-    --carousel-gap: 5px;
     width: 100%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: var(--carousel-gap);
+    gap: 5px;
 
     [class^="custom-carousel-arrow"] {
-        flex: 0 0 calc(10% - var(--carousel-gap));
+        width: max-content;
         background: none;
         border: none;
+
+        &.disabled {
+            opacity: 0.25;
+            pointer-events: none;
+        }
 
         i {
             font-size: 30px;
