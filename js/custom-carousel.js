@@ -73,6 +73,7 @@ class CustomCarousel {
 
 		if (this.indicatorsContainer) {
 			const indicators = this.indicatorsContainer.querySelectorAll(".custom-carousel-indicator");
+
 			indicators.forEach((ind) => ind.classList.remove("active"));
 			if (indicators[this.currentSlideIndex]) {
 				indicators[this.currentSlideIndex].classList.add("active");
@@ -194,7 +195,10 @@ class CustomCarousel {
 		this.initialiseItemsInView();
 		this.initialiseEventListeners();
 
-		if (this.hasArrows) this.initialiseArrows();
+		if (this.hasArrows && (this.itemsInView < this.totalItems)) {
+			this.initialiseArrows();
+		}
+		
 		if (this.hasIndicators) this.initialiseIndicators();
 	}
 }
