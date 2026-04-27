@@ -12,8 +12,8 @@ class CustomCarousel {
 		],
 		infinite = true,
 		autoplay = false,
-		hasIndicators = true,
-		hasArrows = true,
+		hasIndicators = false,
+		hasArrows = false,
 	}) {
 		this.carousel = document.getElementById(carouselId);
 		this.innerContainer = this.carousel.querySelector(".custom-carousel-inner");
@@ -31,7 +31,6 @@ class CustomCarousel {
 		this.isDragging = false;
 		this.startX = 0;
 		this.endX = 0;
-		this.requiresDrag = false;
 		this.indicatorsContainer = null;
 	}
 
@@ -121,12 +120,6 @@ class CustomCarousel {
 				this.itemsInView = breakpoint.itemsInView;
 			}
 		});
-
-		if (this.itemsInView === this.totalItems) {
-			this.requiresDrag = false;
-		} else {
-			this.requiresDrag = true;
-		}
 	}
 
 	initialiseEventListeners() {
