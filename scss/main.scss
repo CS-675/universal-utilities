@@ -1,3 +1,6 @@
+@import "partials/_breakpoints";
+@import "partials/_mixins";
+
 * {
     margin: 0;
     padding: 0;
@@ -19,7 +22,7 @@ body {
 
 img {
     height: auto;
-    max-width: 100%
+    max-width: 100%;
 }
 
 button {
@@ -28,4 +31,4 @@ button {
     cursor: pointer;
 }
 
-@import "./components/_custom-carousel";
+@import "components/_custom-carousel";

@@ -28,47 +28,59 @@ button {
 }
 
 .custom-carousel {
+  --carousel-gap: 5px;
   width: 100%;
-  padding-inline: 20px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: var(--carousel-gap);
 }
-.custom-carousel .carousel-inner {
+.custom-carousel [class^=custom-carousel-arrow] {
+  flex: 0 0 calc(10% - var(--carousel-gap));
+  background: none;
+  border: none;
+}
+.custom-carousel [class^=custom-carousel-arrow] i {
+  font-size: 30px;
+}
+.custom-carousel .custom-carousel-inner {
+  flex: 1;
   overflow: hidden;
 }
-.custom-carousel .carousel-inner .carousel-slides {
+.custom-carousel .custom-carousel-inner .custom-carousel-slides {
   display: flex;
-  transition: all 0.3s ease-in-out;
+  justify-content: space-between;
+  transition: 0.3s ease-in-out;
 }
-.custom-carousel .carousel-inner .carousel-slides .carousel-slide {
+.custom-carousel .custom-carousel-inner .custom-carousel-slides .custom-carousel-slide {
   padding-inline: 5px;
   flex: 0 0 calc(100% / var(--items-in-view));
   max-width: calc(100% / var(--items-in-view));
 }
-.custom-carousel .carousel-inner .carousel-slides .carousel-slide * {
+.custom-carousel .custom-carousel-inner .custom-carousel-slides .custom-carousel-slide * {
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
 }
-.custom-carousel .carousel-inner .carousel-slides .carousel-slide img {
+.custom-carousel .custom-carousel-inner .custom-carousel-slides .custom-carousel-slide img {
   width: 100%;
 }
-.custom-carousel .carousel-inner .carousel-indicators {
+.custom-carousel .custom-carousel-indicators {
+  flex: 0 0 100%;
   margin-top: 10px;
   padding-inline: 5px;
   display: flex;
   justify-content: center;
   gap: 10px;
 }
-.custom-carousel .carousel-inner .carousel-indicators .carousel-indicator {
+.custom-carousel .custom-carousel-indicators .custom-carousel-indicator {
   height: 15px;
   width: 15px;
   background: rgba(0, 0, 0, 0.025);
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 50%;
 }
-.custom-carousel .carousel-inner .carousel-indicators .carousel-indicator.active {
+.custom-carousel .custom-carousel-indicators .custom-carousel-indicator.active {
   background-color: rgba(0, 0, 0, 0.25);
 }/*# sourceMappingURL=main.css.map */

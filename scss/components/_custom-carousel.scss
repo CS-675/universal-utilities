@@ -1,20 +1,31 @@
 .custom-carousel {
+    --carousel-gap: 5px;
     width: 100%;
-    padding-inline: 20px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    flex-wrap: wrap;
+    gap: var(--carousel-gap);
 
-    [class^="carousel-arrow"] {}
+    [class^="custom-carousel-arrow"] {
+        flex: 0 0 calc(10% - var(--carousel-gap));
+        background: none;
+        border: none;
 
-    .carousel-inner {
+        i {
+            font-size: 30px;
+        }
+    }
+
+    .custom-carousel-inner {
+        flex: 1;
         overflow: hidden;
 
-        .carousel-slides {
+        .custom-carousel-slides {
             display: flex;
-            transition: all 0.3s ease-in-out;
+            justify-content: space-between;
+            transition: .3s ease-in-out;
 
-            .carousel-slide {
+            .custom-carousel-slide {
                 padding-inline: 5px;
                 flex: 0 0 calc(100% / var(--items-in-view));
                 max-width: calc(100% / var(--items-in-view));
@@ -29,24 +40,25 @@
                 }
             }
         }
+    }
 
-        .carousel-indicators {
-            margin-top: 10px;
-            padding-inline: 5px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+    .custom-carousel-indicators {
+        flex: 0 0 100%;
+        margin-top: 10px;
+        padding-inline: 5px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
 
-            .carousel-indicator {
-                height: 15px;
-                width: 15px;
-                background: rgba(0, 0, 0, 0.025);
-                border: 1px solid rgba(0, 0, 0, 0.15);
-                border-radius: 50%;
+        .custom-carousel-indicator {
+            height: 15px;
+            width: 15px;
+            background: rgba(0, 0, 0, 0.025);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
 
-                &.active {
-                    background-color: rgba(0, 0, 0, 0.25);
-                }
+            &.active {
+                background-color: rgba(0, 0, 0, 0.25);
             }
         }
     }

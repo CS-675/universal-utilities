@@ -16,8 +16,8 @@ class CustomCarousel {
 		hasArrows = true,
 	}) {
 		this.carousel = document.getElementById(carouselId);
-		this.innerContainer = this.carousel.querySelector(".carousel-inner");
-		this.slidesContainer = this.carousel.querySelector(".carousel-slides");
+		this.innerContainer = this.carousel.querySelector(".custom-carousel-inner");
+		this.slidesContainer = this.carousel.querySelector(".custom-carousel-slides");
 		this.totalItems = this.slidesContainer.children.length;
 		this.breakpoints = breakpoints;
 		this.infinite = infinite;
@@ -70,12 +70,10 @@ class CustomCarousel {
 			}
 		}
 
-		
-
 		this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
-		
+
 		if (this.indicatorsContainer) {
-			const indicators = this.indicatorsContainer.querySelectorAll(".carousel-indicator");
+			const indicators = this.indicatorsContainer.querySelectorAll(".custom-carousel-indicator");
 			indicators.forEach((ind) => ind.classList.remove("active"));
 			if (indicators[this.currentSlideIndex]) {
 				indicators[this.currentSlideIndex].classList.add("active");
@@ -131,18 +129,43 @@ class CustomCarousel {
 		}
 	}
 
+	initialiseEventListeners() {
+		if (this.itemsInView < this.totalItems) {
+			this.slidesContainer.style.cursor = "grab";
+
+			this.slidesContainer.addEventListener("mousedown", () => (this.slidesContainer.style.cursor = "grabbing"));
+			this.slidesContainer.addEventListener("mouseup", () => (this.slidesContainer.style.cursor = "grab"));
+
+			this.slidesContainer.addEventListener("mousedown", (event) => this.handleDragStart(event));
+			this.slidesContainer.addEventListener("touchstart", (event) => this.handleDragStart(event));
+			this.slidesContainer.addEventListener("mousemove", (event) => this.handleDrag(event));
+			this.slidesContainer.addEventListener("touchmove", (event) => this.handleDrag(event));
+			this.slidesContainer.addEventListener("mouseup", (event) => this.handleDragEnd(event));
+			this.slidesContainer.addEventListener("touchend", (event) => this.handleDragEnd(event));
+		} else {
+			this.slidesContainer.style.cursor = "default";
+
+			this.slidesContainer.removeEventListener("mousedown", (event) => this.handleDragStart(event));
+			this.slidesContainer.removeEventListener("touchstart", (event) => this.handleDragStart(event));
+			this.slidesContainer.removeEventListener("mousemove", (event) => this.handleDrag(event));
+			this.slidesContainer.removeEventListener("touchmove", (event) => this.handleDrag(event));
+			this.slidesContainer.removeEventListener("mouseup", (event) => this.handleDragEnd(event));
+			this.slidesContainer.removeEventListener("touchend", (event) => this.handleDragEnd(event));
+		}
+	}
+
 	initialiseIndicators() {
 		const indicatorsContainer = document.createElement("div");
-		indicatorsContainer.classList.add("carousel-indicators");
+		indicatorsContainer.classList.add("custom-carousel-indicators");
 
 		indicatorsContainer.innerHTML = `
-			${Array.from({ length: this.totalItems - this.itemsInView + 1 }, (_, index) => `<button class="carousel-indicator ${index === 0 ? "active" : ""}" data-index="${index}"></button>`).join("")}
+			${Array.from({ length: this.totalItems - this.itemsInView + 1 }, (_, index) => `<button class="custom-carousel-indicator ${index === 0 ? "active" : ""}" data-index="${index}"></button>`).join("")}
 		`;
 
 		this.innerContainer.appendChild(indicatorsContainer);
 		this.indicatorsContainer = indicatorsContainer;
 
-		const indicators = indicatorsContainer.querySelectorAll(".carousel-indicator");
+		const indicators = indicatorsContainer.querySelectorAll(".custom-carousel-indicator");
 
 		indicators.forEach((indicator) => {
 			indicator.addEventListener("click", () => {
@@ -158,11 +181,11 @@ class CustomCarousel {
 		const arrowLeft = document.createElement("button");
 		const arrowRight = document.createElement("button");
 
-		arrowLeft.classList.add("carousel-arrow-left");
-		arrowRight.classList.add("carousel-arrow-right");
+		arrowLeft.classList.add("custom-carousel-arrow-left");
+		arrowRight.classList.add("custom-carousel-arrow-right");
 
-		arrowLeft.innerHTML = `<i class="fa-solid fa-caret-left"></i>`;
-		arrowRight.innerHTML = `<i class="fa-solid fa-caret-right"></i>`;
+		arrowLeft.innerHTML = `<i class="fa-solid fa-angle-left"></i>`;
+		arrowRight.innerHTML = `<i class="fa-solid fa-angle-right"></i>`;
 
 		arrowLeft.addEventListener("click", () => this.handleMoveSlide("left"));
 		arrowRight.addEventListener("click", () => this.handleMoveSlide("right"));
@@ -176,22 +199,9 @@ class CustomCarousel {
 
 	initialise() {
 		this.initialiseItemsInView();
+		this.initialiseEventListeners();
 
 		if (this.hasArrows) this.initialiseArrows();
 		if (this.hasIndicators) this.initialiseIndicators();
-
-		if (this.requiresDrag) {
-			this.slidesContainer.style.cursor = "grab";
-
-			this.slidesContainer.addEventListener("mousedown", () => (this.slidesContainer.style.cursor = "grabbing"));
-			this.slidesContainer.addEventListener("mouseup", () => (this.slidesContainer.style.cursor = "grab"));
-
-			this.slidesContainer.addEventListener("mousedown", (event) => this.handleDragStart(event));
-			this.slidesContainer.addEventListener("touchstart", (event) => this.handleDragStart(event));
-			this.slidesContainer.addEventListener("mousemove", (event) => this.handleDrag(event));
-			this.slidesContainer.addEventListener("touchmove", (event) => this.handleDrag(event));
-			this.slidesContainer.addEventListener("mouseup", (event) => this.handleDragEnd(event));
-			this.slidesContainer.addEventListener("touchend", (event) => this.handleDragEnd(event));
-		}
 	}
 }
