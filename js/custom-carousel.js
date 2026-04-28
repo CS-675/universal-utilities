@@ -126,29 +126,33 @@ class CustomCarousel {
 		});
 	}
 
-	initialiseEventListeners() {
+	initialiseDrag() {
+		this.removeDrag();
+
 		if (this.itemsInView < this.totalItems) {
 			this.slidesContainer.style.cursor = "grab";
 
 			this.slidesContainer.addEventListener("mousedown", () => (this.slidesContainer.style.cursor = "grabbing"));
 			this.slidesContainer.addEventListener("mouseup", () => (this.slidesContainer.style.cursor = "grab"));
 
-			this.slidesContainer.addEventListener("mousedown", (event) => this.handleDragStart(event));
-			this.slidesContainer.addEventListener("touchstart", (event) => this.handleDragStart(event));
-			this.slidesContainer.addEventListener("mousemove", (event) => this.handleDrag(event));
-			this.slidesContainer.addEventListener("touchmove", (event) => this.handleDrag(event));
-			this.slidesContainer.addEventListener("mouseup", (event) => this.handleDragEnd(event));
-			this.slidesContainer.addEventListener("touchend", (event) => this.handleDragEnd(event));
-		} else {
-			this.slidesContainer.style.cursor = "default";
-
-			this.slidesContainer.removeEventListener("mousedown", (event) => this.handleDragStart(event));
-			this.slidesContainer.removeEventListener("touchstart", (event) => this.handleDragStart(event));
-			this.slidesContainer.removeEventListener("mousemove", (event) => this.handleDrag(event));
-			this.slidesContainer.removeEventListener("touchmove", (event) => this.handleDrag(event));
-			this.slidesContainer.removeEventListener("mouseup", (event) => this.handleDragEnd(event));
-			this.slidesContainer.removeEventListener("touchend", (event) => this.handleDragEnd(event));
+			this.slidesContainer.addEventListener("mousedown", this.dragStartHandler = this.dragStartHandler || ((event) => this.handleDragStart(event)));
+			this.slidesContainer.addEventListener("touchstart", this.dragStartHandlerTouch = this.dragStartHandlerTouch || ((event) => this.handleDragStart(event)));
+			this.slidesContainer.addEventListener("mousemove", this.dragHandler = this.dragHandler || ((event) => this.handleDrag(event)));
+			this.slidesContainer.addEventListener("touchmove", this.dragHandlerTouch = this.dragHandlerTouch || ((event) => this.handleDrag(event)));
+			this.slidesContainer.addEventListener("mouseup", this.dragEndHandler = this.dragEndHandler || ((event) => this.handleDragEnd(event)));
+			this.slidesContainer.addEventListener("touchend", this.dragEndHandlerTouch = this.dragEndHandlerTouch || ((event) => this.handleDragEnd(event)));
 		}
+	}
+
+	removeDrag() {
+		this.slidesContainer.style.cursor = "default";
+
+		if (this.dragStartHandler) this.slidesContainer.removeEventListener("mousedown", this.dragStartHandler);
+		if (this.dragStartHandlerTouch) this.slidesContainer.removeEventListener("touchstart", this.dragStartHandlerTouch);
+		if (this.dragHandler) this.slidesContainer.removeEventListener("mousemove", this.dragHandler);
+		if (this.dragHandlerTouch) this.slidesContainer.removeEventListener("touchmove", this.dragHandlerTouch);
+		if (this.dragEndHandler) this.slidesContainer.removeEventListener("mouseup", this.dragEndHandler);
+		if (this.dragEndHandlerTouch) this.slidesContainer.removeEventListener("touchend", this.dragEndHandlerTouch);
 	}
 
 	initialiseArrows() {
@@ -223,7 +227,7 @@ class CustomCarousel {
 		this.initialiseItemsInView();
 
 		if (this.itemsInView < this.totalItems) {
-			if (this.hasDrag || !this.hasArrows) this.initialiseEventListeners();
+			if (this.hasDrag || !this.hasArrows) this.initialiseDrag();
 			if (this.hasArrows) this.initialiseArrows();
 			if (this.hasIndicators) this.initialiseIndicators();
 		}
@@ -234,6 +238,10 @@ class CustomCarousel {
 			this.initialiseItemsInView();
 
 			if (this.itemsInView < this.totalItems) {
+				if (this.hasDrag) {
+					this.initialiseDrag();
+				}
+
 				if (this.hasArrows) {
 					this.initialiseArrows();
 				}
@@ -242,8 +250,15 @@ class CustomCarousel {
 					this.initialiseIndicators();
 				}
 			} else {
-				this.removeArrows();
-				this.removeIndicators();
+				if (this.hasDrag) {
+					this.removeDrag();
+				}
+				if (this.hasArrows) {
+					this.removeArrows();
+				}
+				if (this.hasIndicators) {
+					this.removeIndicators();
+				}
 			}
 		});
 	}
