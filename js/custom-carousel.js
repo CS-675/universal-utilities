@@ -6,7 +6,7 @@ class CustomCarousel {
 			{ size: 1024, itemsInView: 2 },
 			{ size: 768, itemsInView: 1 },
 		],
-		infinite = false,
+		infinite = true,
 		autoplay = false,
 		hasDrag = false,
 		hasIndicators = false,
@@ -151,33 +151,6 @@ class CustomCarousel {
 		}
 	}
 
-	initialiseIndicators() {
-		const indicatorsContainer = document.createElement("div");
-		indicatorsContainer.classList.add("custom-carousel-indicators");
-
-		indicatorsContainer.innerHTML = `
-			${Array.from({ length: this.totalItems - this.itemsInView + 1 }, (_, index) => `<button class="custom-carousel-indicator ${index === 0 ? "active" : ""}" data-index="${index}"></button>`).join("")}
-		`;
-
-		if (this.indicatorsContainer) {
-			this.indicatorsContainer.remove();
-		}
-
-		this.innerContainer.appendChild(indicatorsContainer);
-		this.indicatorsContainer = indicatorsContainer;
-
-		const indicators = indicatorsContainer.querySelectorAll(".custom-carousel-indicator");
-
-		indicators.forEach((indicator) => {
-			indicator.addEventListener("click", () => {
-				this.currentSlideIndex = parseInt(indicator.getAttribute("data-index"));
-				this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
-				indicators.forEach((ind) => ind.classList.remove("active"));
-				indicator.classList.add("active");
-			});
-		});
-	}
-
 	initialiseArrows() {
 		const arrowLeft = document.createElement("button");
 		const arrowRight = document.createElement("button");
@@ -198,11 +171,52 @@ class CustomCarousel {
 			}
 		}
 
+		this.removeArrows();
+
 		this.carousel.insertBefore(arrowLeft, this.carousel.firstChild);
 		this.carousel.appendChild(arrowRight);
 
 		this.arrowLeft = arrowLeft;
 		this.arrowRight = arrowRight;
+	}
+
+	removeArrows() {
+		if (this.hasArrows) {
+			if (this.arrowLeft) this.arrowLeft.remove();
+			if (this.arrowRight) this.arrowRight.remove();
+		}
+	}
+
+	initialiseIndicators() {
+		const indicatorsContainer = document.createElement("div");
+		indicatorsContainer.classList.add("custom-carousel-indicators");
+
+		indicatorsContainer.innerHTML = `
+			${Array.from({ length: this.totalItems - this.itemsInView + 1 }, (_, index) => `<button class="custom-carousel-indicator ${index === 0 ? "active" : ""}" data-index="${index}"></button>`).join("")}
+		`;
+
+		this.removeIndicators();
+
+		this.innerContainer.appendChild(indicatorsContainer);
+		this.indicatorsContainer = indicatorsContainer;
+
+		const indicators = indicatorsContainer.querySelectorAll(".custom-carousel-indicator");
+
+		indicators.forEach((indicator) => {
+			indicator.addEventListener("click", () => {
+				this.currentSlideIndex = parseInt(indicator.getAttribute("data-index"));
+				this.slidesContainer.style.transform = `translateX(${this.getTranslateX()}%)`;
+				indicators.forEach((ind) => ind.classList.remove("active"));
+				indicator.classList.add("active");
+			});
+		});
+	}
+
+	removeIndicators() {
+		if (this.hasIndicators && this.indicatorsContainer) {
+			this.indicatorsContainer.remove();
+			this.indicatorsContainer = null;
+		}
 	}
 
 	initialise() {
@@ -219,8 +233,17 @@ class CustomCarousel {
 			this.slidesContainer.style.transform = `translateX(0%)`;
 			this.initialiseItemsInView();
 
-			if (this.hasIndicators && this.itemsInView < this.totalItems) {
-				this.initialiseIndicators();
+			if (this.itemsInView < this.totalItems) {
+				if (this.hasArrows) {
+					this.initialiseArrows();
+				}
+
+				if (this.hasIndicators) {
+					this.initialiseIndicators();
+				}
+			} else {
+				this.removeArrows();
+				this.removeIndicators();
 			}
 		});
 	}
