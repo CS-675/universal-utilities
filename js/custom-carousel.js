@@ -135,12 +135,12 @@ class CustomCarousel {
 			this.slidesContainer.addEventListener("mousedown", () => (this.slidesContainer.style.cursor = "grabbing"));
 			this.slidesContainer.addEventListener("mouseup", () => (this.slidesContainer.style.cursor = "grab"));
 
-			this.slidesContainer.addEventListener("mousedown", this.dragStartHandler = this.dragStartHandler || ((event) => this.handleDragStart(event)));
-			this.slidesContainer.addEventListener("touchstart", this.dragStartHandlerTouch = this.dragStartHandlerTouch || ((event) => this.handleDragStart(event)));
-			this.slidesContainer.addEventListener("mousemove", this.dragHandler = this.dragHandler || ((event) => this.handleDrag(event)));
-			this.slidesContainer.addEventListener("touchmove", this.dragHandlerTouch = this.dragHandlerTouch || ((event) => this.handleDrag(event)));
-			this.slidesContainer.addEventListener("mouseup", this.dragEndHandler = this.dragEndHandler || ((event) => this.handleDragEnd(event)));
-			this.slidesContainer.addEventListener("touchend", this.dragEndHandlerTouch = this.dragEndHandlerTouch || ((event) => this.handleDragEnd(event)));
+			this.slidesContainer.addEventListener("mousedown", (this.dragStartHandler = this.dragStartHandler || ((event) => this.handleDragStart(event))));
+			this.slidesContainer.addEventListener("touchstart", (this.dragStartHandlerTouch = this.dragStartHandlerTouch || ((event) => this.handleDragStart(event))));
+			this.slidesContainer.addEventListener("mousemove", (this.dragHandler = this.dragHandler || ((event) => this.handleDrag(event))));
+			this.slidesContainer.addEventListener("touchmove", (this.dragHandlerTouch = this.dragHandlerTouch || ((event) => this.handleDrag(event))));
+			this.slidesContainer.addEventListener("mouseup", (this.dragEndHandler = this.dragEndHandler || ((event) => this.handleDragEnd(event))));
+			this.slidesContainer.addEventListener("touchend", (this.dragEndHandlerTouch = this.dragEndHandlerTouch || ((event) => this.handleDragEnd(event))));
 		}
 	}
 
