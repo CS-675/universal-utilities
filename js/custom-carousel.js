@@ -7,7 +7,8 @@ class CustomCarousel {
 			{ size: 768, itemsInView: 1 },
 		],
 		infinite = true,
-		autoplay = false,
+		hasAutoplay = false,
+        autoplayIntervalTime = 3000,
 		hasDrag = false,
 		hasIndicators = false,
 		hasArrows = false,
@@ -18,7 +19,8 @@ class CustomCarousel {
 		this.totalItems = this.slidesContainer.children.length;
 		this.breakpoints = breakpoints;
 		this.infinite = infinite;
-		this.autoplay = autoplay;
+		this.hasAutoplay = hasAutoplay;
+        this.autoplayIntervalTime = autoplayIntervalTime;
 		this.hasDrag = hasDrag;
 		this.hasIndicators = hasIndicators;
 		this.hasArrows = hasArrows;
@@ -223,8 +225,15 @@ class CustomCarousel {
 		}
 	}
 
+	initialiseAutoplay() {
+		this.autoplayInterval = setInterval(() => {
+			this.handleMoveSlide("right");
+		}, this.autoplayIntervalTime);
+	}
+
 	initialise() {
 		this.initialiseItemsInView();
+		if (this.hasAutoplay) this.initialiseAutoplay();
 
 		if (this.itemsInView < this.totalItems) {
 			if (this.hasDrag || !this.hasArrows) this.initialiseDrag();
