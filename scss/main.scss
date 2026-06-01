@@ -1,36 +1,8 @@
 @import "partials/_breakpoints";
 @import "partials/_mixins";
+@import "partials/_html-body";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import "components/_header";
+@import "components/_footer";
 
-html {
-    height: 100%;
-    width: 100vw;
-    overflow: hidden;
-
-}
-
-body {
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-}
-
-img {
-    height: auto;
-    width: 100%;
-    max-width: 100%;
-}
-
-button {
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-@import "components/_custom-carousel";
+@import "pages/_custom-carousel";

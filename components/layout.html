@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<?php include_once $_SERVER["DOCUMENT_ROOT"] . "/components/head.html"; ?>
+
+<body <?php echo !empty($page_name) ? 'class=' . $page_name : ''; ?>>
+    <?php include_once $_SERVER["DOCUMENT_ROOT"] . "/components/header.html"; ?>
+
+    <main class="main-container" id="main_container">
+        <?php echo !empty($content) ? $content : ''; ?>
+    </main>
+
+    <?php include_once $_SERVER["DOCUMENT_ROOT"] . "/components/footer.html"; ?>
+</body>
+
+</html>

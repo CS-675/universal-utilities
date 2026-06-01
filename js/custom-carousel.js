@@ -272,3 +272,4 @@ class CustomCarousel {
 		});
 	}
 }
+console.log("here")

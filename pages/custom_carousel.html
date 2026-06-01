@@ -1,8 +1,10 @@
+<?php ob_start(); ?>
+
 <div class="custom-carousel" id="custom_carousel">
     <div class="custom-carousel-inner">
         <div class="custom-carousel-slides">
             <?php for ($index = 0; $index < 6; $index++) { ?>
-                <div class="custom-carousel-slide">
+                <div>
                     <img src="https://placehold.co/600x400" alt="Placeholder" />
                 </div>
             <?php } ?>
@@ -20,3 +22,10 @@
         infinite: true,
     }).initialise();
 </script>
+
+<?php 
+$page_name = "custom-carousel-page";
+$content = ob_get_clean();
+?>
+
+<?php include_once($_SERVER["DOCUMENT_ROOT"] . "/components/layout.html"); ?>
