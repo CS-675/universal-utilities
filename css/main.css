@@ -66,12 +66,13 @@ button {
 }
 
 .custom-carousel-page .main-container {
+  padding-block: 20px;
   display: flex;
   place-items: center;
 }
 .custom-carousel-page .main-container .custom-carousel {
-  padding-inline: 20px;
   width: 100%;
+  padding-inline: 20px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -127,4 +128,44 @@ button {
 }
 .custom-carousel-page .main-container .custom-carousel .custom-carousel-indicators .custom-carousel-indicator.active {
   background-color: rgba(0, 0, 0, 0.25);
+}
+
+.images-page .main-container {
+  display: flex;
+  place-items: center;
+}
+.images-page .main-container .images-container {
+  width: 100%;
+}
+.images-page .main-container .images-container .main-image {
+  position: relative;
+  width: -moz-max-content;
+  width: max-content;
+}
+.images-page .main-container .images-container .main-image .image-rollover-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.images-page .main-container .images-container .main-image .image-rollover-container:hover {
+  opacity: 1;
+}
+.images-page .main-container .images-container .main-image img {
+  max-width: 400px;
+}
+.images-page .main-container .images-container .lightbox-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.images-page .main-container .images-container .lightbox-images img {
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

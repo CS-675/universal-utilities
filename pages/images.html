@@ -1,15 +1,25 @@
 <?php ob_start(); ?>
 
-<div class="image-gallery">
-    <?php for ($index = 0; $index < 12; $index++) { ?>
-        <div class="image-item">
-            <img src="https://placehold.co/300x200" alt="Placeholder" />
-        </div>
-    <?php } ?>
+<script src="/js/images.js"></script>
+
+<div class="images-container">
+    <div class="main-image" id="main_image">
+        <div class="image-rollover-container" id="image_rollover" onmouseover="handleImageRollover(event)" onmousemove="handleImageRollover(event)"></div>
+
+        <img src="https://placehold.co/1000x1000" alt="Placeholder" />
+    </div>
+
+    <div class="lightbox-images">
+        <?php for ($index = 0; $index < 6; $index++) { ?>
+            <img id="lightbox_image_<?php echo $index; ?>" src="https://placehold.co/200x200" alt="Placeholder <?php echo $index; ?>" onclick="handleImageSwap(event)" />
+        <?php } ?>
+    </div>
 </div>
 
+
+
 <?php
-$page_name = "image-gallery-page";
+$page_name = "images-page";
 $content = ob_get_clean();
 ?>
 

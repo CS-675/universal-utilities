@@ -1,0 +1,47 @@
+.images-page {
+    .main-container {
+        display: flex;
+        place-items: center;
+
+        .images-container {
+            width: 100%;
+
+            .main-image {
+                position: relative;
+                width: max-content;
+
+                .image-rollover-container {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
+                img {
+                    max-width: 400px;
+                }
+            }
+
+            .lightbox-images {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 10px;
+
+                img {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

@@ -1,12 +1,12 @@
 .custom-carousel-page {
     .main-container {
+        padding-block: 20px;
         display: flex;
         place-items: center;
 
         .custom-carousel {
-            padding-inline: 20px;
-
             width: 100%;
+            padding-inline: 20px;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
