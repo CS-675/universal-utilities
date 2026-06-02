@@ -1,0 +1,27 @@
+<?php ob_start(); ?>
+
+<script src="/js/tabs.js"></script>
+
+<div class="tabs-container" id="custom_tabs">
+    <div class="tab-navigation">
+        <?php for ($index = 0; $index < 4; $index++) { ?>
+            <button class="tab-link <?php echo $index === 0 ? 'active' : ''; ?>" data-tab-id="<?php echo $index; ?>" onclick="showTabContent(event)">Tab <?php echo $index + 1; ?></button>
+        <?php } ?>
+    </div>
+
+    <div class="tab-contents">
+        <?php for ($index = 0; $index < 4; $index++) { ?>
+            <div class="tab-content <?php echo $index === 0 ? 'active' : ''; ?>" data-tab-id="<?php echo $index; ?>">
+                <h2>Content for Tab <?php echo $index + 1; ?></h2>
+                <p>This is the content area for Tab <?php echo $index + 1; ?>. You can add any content you like here.</p>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+
+<?php
+$page_name = "tabs-page";
+$content = ob_get_clean();
+?>
+
+<?php include_once($_SERVER["DOCUMENT_ROOT"] . "/components/layout.html"); ?>

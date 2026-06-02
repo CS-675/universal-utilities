@@ -168,4 +168,15 @@ button {
 }
 .images-page .main-container .images-container .lightbox-images img {
   cursor: pointer;
+}
+
+.tabs-page .tabs-container .tab-navigation {
+  display: flex;
+  gap: 10px;
+}
+.tabs-page .tabs-container .tab-contents .tab-content {
+  display: none;
+}
+.tabs-page .tabs-container .tab-contents .tab-content.active {
+  display: block;
 }/*# sourceMappingURL=main.css.map */
