@@ -47,6 +47,12 @@ button {
   cursor: pointer;
 }
 
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .header .navigation-bar ul {
   display: flex;
   gap: 10px;
@@ -58,6 +64,12 @@ button {
   justify-content: space-between;
   border-bottom: 1px solid #ccc;
 }
+@media (min-width: 0) and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 
 .footer {
   width: 100%;
@@ -67,8 +79,6 @@ button {
 
 .custom-carousel-page .main-container {
   padding-block: 20px;
-  display: flex;
-  place-items: center;
 }
 .custom-carousel-page .main-container .custom-carousel {
   width: 100%;
@@ -131,16 +141,21 @@ button {
 }
 
 .images-page .main-container {
-  display: flex;
-  place-items: center;
+  padding: 40px;
 }
 .images-page .main-container .images-container {
   width: 100%;
 }
 .images-page .main-container .images-container .main-image {
+  margin-bottom: 20px;
   position: relative;
   width: -moz-max-content;
   width: max-content;
+}
+@media (min-width: 0) and (max-width: 768px) {
+  .images-page .main-container .images-container .main-image {
+    width: 100%;
+  }
 }
 .images-page .main-container .images-container .main-image .image-rollover-container {
   height: 100%;
@@ -158,13 +173,31 @@ button {
 .images-page .main-container .images-container .main-image .image-rollover-container:hover {
   opacity: 1;
 }
+@media (min-width: 0) and (max-width: 768px) {
+  .images-page .main-container .images-container .main-image .image-rollover-container {
+    display: none;
+  }
+}
 .images-page .main-container .images-container .main-image img {
+  min-width: 400px;
   max-width: 400px;
+  aspect-ratio: 1/1;
+}
+@media (min-width: 0) and (max-width: 768px) {
+  .images-page .main-container .images-container .main-image img {
+    min-width: unset;
+    max-width: 100%;
+  }
 }
 .images-page .main-container .images-container .lightbox-images {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
+}
+@media (min-width: 0) and (max-width: 768px) {
+  .images-page .main-container .images-container .lightbox-images {
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  }
 }
 .images-page .main-container .images-container .lightbox-images img {
   cursor: pointer;
@@ -172,11 +205,33 @@ button {
 
 .tabs-page .tabs-container .tab-navigation {
   display: flex;
-  gap: 10px;
+}
+.tabs-page .tabs-container .tab-navigation .tab-link {
+  padding: 10px 30px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  background-color: #f9f9f9;
+}
+.tabs-page .tabs-container .tab-navigation .tab-link:not(:last-child) {
+  border-right: none;
+}
+.tabs-page .tabs-container .tab-navigation .tab-link.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
 }
 .tabs-page .tabs-container .tab-contents .tab-content {
-  display: none;
+  max-height: 0;
+  padding-inline: 20px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 .tabs-page .tabs-container .tab-contents .tab-content.active {
-  display: block;
+  min-height: 200px;
+  max-height: 1000px;
+  padding-block: 20px;
+  opacity: 1;
+  border: 1px solid #ccc;
 }/*# sourceMappingURL=main.css.map */

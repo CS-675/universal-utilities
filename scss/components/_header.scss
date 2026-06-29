@@ -6,4 +6,9 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
+
+    @include at-breakpoint(0, $md) {
+        flex-direction: column;
+        gap: 20px;
+    }
 }

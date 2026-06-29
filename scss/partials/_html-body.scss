@@ -48,3 +48,9 @@ button {
     outline: none;
     cursor: pointer;
 }
+
+.main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

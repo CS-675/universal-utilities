@@ -2,19 +2,40 @@
     .tabs-container {
         .tab-navigation {
             display: flex;
-            gap: 10px;
 
             .tab-link {
+                padding: 10px 30px;
+                cursor: pointer;
+                border: 1px solid #ccc;
+                border-bottom: none;
+                background-color: #f9f9f9;
 
+                &:not(:last-child) {
+                    border-right: none;
+                }
+
+                &.active {
+                    background-color: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                }
             }
         }
 
         .tab-contents {
             .tab-content {
-                display: none;
-
+                max-height: 0;
+                padding-inline: 20px;
+                overflow: hidden;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                
                 &.active {
-                    display: block;
+                    min-height: 200px;
+                    max-height: 1000px;
+                    padding-block: 20px;
+                    opacity: 1;
+                    border: 1px solid #ccc;
                 }
             }
         }

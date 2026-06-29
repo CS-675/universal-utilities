@@ -1,14 +1,18 @@
 .images-page {
     .main-container {
-        display: flex;
-        place-items: center;
+        padding: 40px;
 
         .images-container {
             width: 100%;
 
             .main-image {
+                margin-bottom: 20px;
                 position: relative;
                 width: max-content;
+
+                @include at-breakpoint(0, $md) {
+                    width: 100%;
+                }
 
                 .image-rollover-container {
                     height: 100%;
@@ -26,10 +30,21 @@
                     &:hover {
                         opacity: 1;
                     }
+
+                    @include at-breakpoint(0, $md) {
+                        display: none;
+                    }
                 }
 
                 img {
+                    min-width: 400px;
                     max-width: 400px;
+                    aspect-ratio: 1/1;
+
+                    @include at-breakpoint(0, $md) {
+                        min-width: unset;
+                        max-width: 100%;
+                    }
                 }
             }
 
@@ -37,6 +52,10 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 10px;
+
+                @include at-breakpoint(0, $md) {
+                    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+                }
 
                 img {
                     cursor: pointer;
